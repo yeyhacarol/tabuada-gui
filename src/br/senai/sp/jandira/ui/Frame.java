@@ -4,14 +4,15 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import br.senai.sp.jandira.model.Tabuada;
 
@@ -26,30 +27,35 @@ public class Frame {
 		frame.setTitle("Tabuada");
 		frame.setSize(600, 420);
 		frame.setLayout(null);
+		frame.setBackground(Color.GRAY);
+		
+		JPanel header = new JPanel();
+		header.setBounds(0, 0, 600, 60);
+		header.setBackground(Color.WHITE);
+		header.setLayout(null);
 		
 		Font fonteTitulo = new Font("Lucida Sans", Font.BOLD, 24);
 		Color corTitulo = new Color(20, 53, 209);
 		
-		JLabel lblTitulo = new JLabel();
-		lblTitulo.setText("Tabuada");
+		JLabel lblTitulo = new JLabel("Tabuada");
 		lblTitulo.setFont(fonteTitulo);
 		lblTitulo.setForeground(corTitulo);
-		lblTitulo.setBounds(40, 20, 130, 30);
+		lblTitulo.setBounds(40, 20, 130, 30); 
 		
 		Font fonteMM = new Font("Arial", Font.PLAIN, 18);
 		
-		JLabel lblMultiplicando = new JLabel();
-		lblMultiplicando.setText("Multiplicando:");
-		lblMultiplicando.setBounds(95, 80, 120, 30);
+		JLabel lblMultiplicando = new JLabel("Multiplicando:");
+		lblMultiplicando.setBounds(40, 80, 175, 30);
 		lblMultiplicando.setFont(fonteMM);
+		lblMultiplicando.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		JTextField txtMultiplicando = new JTextField();
 		txtMultiplicando.setBounds(230, 80, 60, 30);
 		
-		JLabel lblMultiplicador = new JLabel();
-		lblMultiplicador.setText("Máximo multiplicador:");
+		JLabel lblMultiplicador = new JLabel("Máximo multiplicador:");
 		lblMultiplicador.setBounds(40, 125, 175, 30);
 		lblMultiplicador.setFont(fonteMM);
+		lblMultiplicador.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		JTextField txtMultiplicador = new JTextField();
 		txtMultiplicador.setBounds(230, 125, 60, 30);
@@ -66,8 +72,7 @@ public class Frame {
 		
 		Color corBtnLimpar =  new Color(150, 47, 47);
 		
-		JButton btnLimpar = new JButton();
-		btnLimpar.setText("Limpar");
+		JButton btnLimpar = new JButton("Limpar");
 		btnLimpar.setBounds(40, 250, 245, 50);
 		btnLimpar.setBackground(corBtnLimpar);
 		btnLimpar.setFont(fonteBtn);
@@ -75,22 +80,22 @@ public class Frame {
 		
 		Font fonteResultados = new Font("Arial", Font.BOLD, 18);
 		
-		JLabel lblResultados = new JLabel();
-		lblResultados.setText("Resultado:");
+		JLabel lblResultados = new JLabel("Resultado:");
 		lblResultados.setBounds(340, 80, 100, 30);
 		lblResultados.setFont(fonteResultados);
 		lblResultados.setForeground(corTitulo);
 		
 		JScrollPane scroll = new JScrollPane();
 		scroll.setBounds(340, 120, 200, 200);
-		
-		DefaultListModel tabuadaModel = new DefaultListModel();
-		tabuadaModel.addElement("1x1");
-		
-		JList tabuadaList = new JList(tabuadaModel);
+			
+		JList tabuadaList = new JList();
 		scroll.getViewport().add(tabuadaList);
 		
-		frame.getContentPane().add(lblTitulo);
+		DefaultListModel tabuadaModel = new DefaultListModel();	
+		tabuadaList.setModel(tabuadaModel);
+		
+		frame.getContentPane().add(header);
+		header.add(lblTitulo);
 		frame.getContentPane().add(lblMultiplicando);
 		frame.getContentPane().add(txtMultiplicando);
 		frame.getContentPane().add(lblMultiplicador);
@@ -111,17 +116,27 @@ public class Frame {
 				Tabuada tabuada = new Tabuada();
 				
 				tabuada.setMultiplicando(txtMultiplicando.getText());
-				tabuada.getMultiplicando();
 				tabuada.setMultiplicador(txtMultiplicador.getText());
 				
-				for(int contador = 0; contador <= tabuada.getMultiplicador(); contador++) {
-					tabuada.setResultado();
-					
-					tabuadaModel.addElement(tabuada.getMultiplicando() + "x" + 
-							tabuada.getMultiplicador() + " = " + tabuada.getResultado());
-					
+				String[] resultadoTabuada = tabuada.calcular();
+				
+				for (int i = 0; i < resultadoTabuada.length; i++) {
+					tabuadaModel.addElement(resultadoTabuada[i]);
 				}
-
+				
+			}
+		});
+		
+		btnLimpar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				txtMultiplicador.setText("");
+				txtMultiplicando.setText("");
+				txtMultiplicando.requestFocus();
+				
+				tabuadaModel.removeAllElements();
 				
 			}
 		});

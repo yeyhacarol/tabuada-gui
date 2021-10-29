@@ -2,42 +2,41 @@ package br.senai.sp.jandira.model;
 
 public class Tabuada {
 	
-	private int multiplicando;
-	private int multiplicador;
-	private int resultado;
-	private int contador = multiplicador;
+	private int multiplicador, multiplicando;
 	
-	public void setMultiplicando(String multiplicando) {
-		this.multiplicando = Integer.parseInt(multiplicando);
-	}
-	
-	public int getMultiplicando() {
-		return multiplicando;
-	}
-	
-	public void setMultiplicador(String multiplicador) {
-		this.multiplicador = Integer.parseInt(multiplicador);
-	}
-
 	public int getMultiplicador() {
 		return multiplicador;
 	}
 
-	public void setResultado() {
-		
-		while (contador <= multiplicador) {
-			
-			this.resultado = multiplicando * contador;
-			
-			System.out.println(multiplicando + " x " + contador + " = " + this.resultado);
-			
-			contador++;		
-		}
+	public void setMultiplicador(String multiplicador) {
+		this.multiplicador = Integer.parseInt(multiplicador);
 	}
 
-	public int getResultado() {
-		return resultado;
+	public int getMultiplicando() {
+		return multiplicando;
 	}
+
+	public void setMultiplicando(String multiplicando) {
+		this.multiplicando = Integer.parseInt(multiplicando);
+	}
+
+
+	public String[] calcular() {
+		
+		String tabuada[] = new String[multiplicador + 1];
+		
+		for (int index = 0; index < multiplicador; index++) {
+			
+			int resultado = multiplicando * index;
+			
+			tabuada[index] = multiplicando + " x " + index + " = " + resultado;
+		}
+		
+		return tabuada;
+	}
+	
+	
+	
 	
 	
 	
