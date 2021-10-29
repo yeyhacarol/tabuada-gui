@@ -7,16 +7,16 @@ public class Tabuada {
 	private int resultado;
 	private int contador = multiplicador;
 	
-	public void setMultiplicando(int multiplicando) {
-		this.multiplicando = multiplicando;
+	public void setMultiplicando(String multiplicando) {
+		this.multiplicando = Integer.parseInt(multiplicando);
 	}
 	
 	public int getMultiplicando() {
 		return multiplicando;
 	}
 	
-	public void setMultiplicador(int multiplicador) {
-		this.multiplicador = multiplicador;
+	public void setMultiplicador(String multiplicador) {
+		this.multiplicador = Integer.parseInt(multiplicador);
 	}
 
 	public int getMultiplicador() {

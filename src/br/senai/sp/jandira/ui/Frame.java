@@ -2,11 +2,18 @@ package br.senai.sp.jandira.ui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+
+import br.senai.sp.jandira.model.Tabuada;
 
 public class Frame {
 	
@@ -17,7 +24,7 @@ public class Frame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		frame.setTitle("Tabuada");
-		frame.setSize(500, 500);
+		frame.setSize(600, 420);
 		frame.setLayout(null);
 		
 		Font fonteTitulo = new Font("Lucida Sans", Font.BOLD, 24);
@@ -47,24 +54,77 @@ public class Frame {
 		JTextField txtMultiplicador = new JTextField();
 		txtMultiplicador.setBounds(230, 125, 60, 30);
 		
-		Font fonteBtnCalculo = new Font("Candara", Font.BOLD, 18);
-		Color corBtnCalculo = new Color(133, 244, 100);
+		Font fonteBtn = new Font("Arial, sans-serif", Font.BOLD, 22);
+		Color corBtnCalculo = new Color(57, 120, 53);
 		
 		JButton btnCalcular = new JButton();
 		btnCalcular.setText("Calcular");
 		btnCalcular.setBounds(40, 185, 245, 50);
 		btnCalcular.setBackground(corBtnCalculo);
-		btnCalcular.setFont(fonteBtnCalculo);
+		btnCalcular.setFont(fonteBtn);
 		btnCalcular.setForeground(Color.WHITE);
-			
+		
+		Color corBtnLimpar =  new Color(150, 47, 47);
+		
+		JButton btnLimpar = new JButton();
+		btnLimpar.setText("Limpar");
+		btnLimpar.setBounds(40, 250, 245, 50);
+		btnLimpar.setBackground(corBtnLimpar);
+		btnLimpar.setFont(fonteBtn);
+		btnLimpar.setForeground(Color.WHITE);
+		
+		Font fonteResultados = new Font("Arial", Font.BOLD, 18);
+		
+		JLabel lblResultados = new JLabel();
+		lblResultados.setText("Resultado:");
+		lblResultados.setBounds(340, 80, 100, 30);
+		lblResultados.setFont(fonteResultados);
+		lblResultados.setForeground(corTitulo);
+		
+		JScrollPane scroll = new JScrollPane();
+		scroll.setBounds(340, 120, 200, 200);
+		
+		DefaultListModel tabuadaModel = new DefaultListModel();
+		tabuadaModel.addElement("1x1");
+		
+		JList tabuadaList = new JList(tabuadaModel);
+		scroll.getViewport().add(tabuadaList);
+		
 		frame.getContentPane().add(lblTitulo);
 		frame.getContentPane().add(lblMultiplicando);
 		frame.getContentPane().add(txtMultiplicando);
 		frame.getContentPane().add(lblMultiplicador);
 		frame.getContentPane().add(txtMultiplicador);
 		frame.getContentPane().add(btnCalcular);
+		frame.getContentPane().add(btnLimpar);
+		
+		frame.getContentPane().add(lblResultados);
+		frame.getContentPane().add(scroll);
 		
 		frame.setVisible(true);
+		
+		btnCalcular.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				Tabuada tabuada = new Tabuada();
+				
+				tabuada.setMultiplicando(txtMultiplicando.getText());
+				tabuada.getMultiplicando();
+				tabuada.setMultiplicador(txtMultiplicador.getText());
+				
+				for(int contador = 0; contador <= tabuada.getMultiplicador(); contador++) {
+					tabuada.setResultado();
+					
+					tabuadaModel.addElement(tabuada.getMultiplicando() + "x" + 
+							tabuada.getMultiplicador() + " = " + tabuada.getResultado());
+					
+				}
+
+				
+			}
+		});
 		
 	}
 }

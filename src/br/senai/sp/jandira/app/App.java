@@ -9,8 +9,8 @@ public class App {
 		
 		Tabuada tabuada = new Tabuada();
 		
-		tabuada.setMultiplicando(9);
-		tabuada.setMultiplicador(8);
+		//tabuada.setMultiplicando(9);
+		//tabuada.setMultiplicador(8);
 		
 		tabuada.setResultado();
 		
